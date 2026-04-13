@@ -202,9 +202,10 @@
 
     /* Day columns */
     .day-cols-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .day-cols-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
     .day-cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     @media (max-width: 800px) {
-      .day-cols-5, .day-cols-4 { grid-template-columns: repeat(2, 1fr); }
+      .day-cols-6, .day-cols-5, .day-cols-4 { grid-template-columns: repeat(2, 1fr); }
     }
 
     .day-col { display: flex; flex-direction: column; }
@@ -558,15 +559,29 @@
       </div>
       <div class="tracker-body">
 
-        <!-- WEEK 1: Apr 14–18 -->
+        <!-- WEEK 1: Apr 13–18 -->
         <div>
-          <div class="week-label">Week 1 — April 14–18 · Deadlines: Friday Apr 18</div>
-          <div class="day-cols-5">
+          <div class="week-label">Week 1 — April 13–18 · Deadlines: Friday Apr 18</div>
+          <div class="day-cols-6">
+
+            <!-- TODAY Apr 13 -->
+            <div class="day-col">
+              <div class="day-header today">
+                <div class="today-dot"></div>
+                <div class="day-name">Today — Monday</div>
+                <div class="day-date">Apr 13</div>
+              </div>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">Michelle &amp; Tiffanie — Prompts + Project Planning</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag meeting">Meeting</span>
+              </div>
+            </div>
 
             <!-- MON Apr 14 -->
             <div class="day-col">
               <div class="day-header">
-                <div class="day-name">Tomorrow — Monday</div>
+                <div class="day-name">Tomorrow — Tuesday</div>
                 <div class="day-date">Apr 14</div>
               </div>
               <div class="ms-card urgent">
@@ -601,11 +616,6 @@
                 <div class="ms-card-title">MN edits — welcome section + FAQs</div>
                 <div class="ms-card-owner">Michelle + Tiffanie</div>
                 <span class="ms-tag tech">MN Edits</span>
-              </div>
-              <div class="ms-card normal">
-                <div class="ms-card-title">Forbes Landing Page — begin drafting</div>
-                <div class="ms-card-owner">Michelle</div>
-                <span class="ms-tag sales">Forbes</span>
               </div>
             </div>
 
@@ -643,8 +653,8 @@
                 <div class="ms-card-owner">Michelle + Tiffanie</div>
                 <span class="ms-tag content">Welcome Email</span>
               </div>
-              <div class="ms-card high">
-                <div class="ms-card-title">Forbes Landing Page — finalize + UTM link</div>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">Forbes Landing Page — draft &amp; finalize + UTM link ⭐ Due Thursday</div>
                 <div class="ms-card-owner">Michelle</div>
                 <span class="ms-tag sales">Forbes</span>
               </div>
