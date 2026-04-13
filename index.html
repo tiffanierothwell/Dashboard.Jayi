@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JayI "How To" Program — Project Dashboard</title>
+  <style>
+    :root {
+      --white: #ffffff;
+      --off-white: #f4f5f7;
+      --blue: #1a4a8a;
+      --blue-light: #2563b0;
+      --blue-pale: #e8f0fb;
+      --grey-dark: #2d3748;
+      --grey-mid: #718096;
+      --grey-light: #e2e8f0;
+      --black: #111827;
+      --green: #16a34a;
+      --green-pale: #dcfce7;
+      --amber: #d97706;
+      --amber-pale: #fef3c7;
+      --red: #dc2626;
+      --red-pale: #fee2e2;
+      --slate: #475569;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--off-white);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: var(--white);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .logo-badge {
+      background: var(--white);
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 18px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+    }
+    .header-date { font-size: 13px; opacity: 0.75; }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* ── COUNTDOWN BANNER ── */
+    .countdown-banner {
+      background: linear-gradient(135deg, #0f2d5a 0%, #1a4a8a 60%, #1e5fa8 100%);
+      border-radius: 14px;
+      padding: 28px 32px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: 0 4px 20px rgba(26,74,138,0.25);
+      flex-wrap: wrap;
+    }
+    .countdown-left .launch-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; opacity: 0.65; margin-bottom: 4px;
+    }
+    .countdown-left .launch-title { font-size: 22px; font-weight: 800; line-height: 1.2; }
+    .countdown-left .launch-date  { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+    .urgency-tag {
+      background: rgba(220,38,38,0.25);
+      border: 1px solid rgba(220,38,38,0.4);
+      color: #fca5a5;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; padding: 4px 10px; border-radius: 20px;
+      margin-top: 8px; display: inline-block;
+    }
+    .countdown-units { display: flex; gap: 12px; align-items: center; }
+    .countdown-unit {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; padding: 14px 20px; min-width: 72px;
+    }
+    .countdown-unit .num {
+      font-size: 36px; font-weight: 800; line-height: 1; letter-spacing: -1px;
+    }
+    .countdown-unit .lbl {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1px; opacity: 0.6; margin-top: 4px;
+    }
+    .countdown-sep { font-size: 28px; font-weight: 700; opacity: 0.4; padding-bottom: 10px; }
+
+    /* ── Stat Cards ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .stat-card {
+      background: var(--white); border-radius: 10px; padding: 20px;
+      border: 1px solid var(--grey-light); display: flex; flex-direction: column; gap: 6px;
+    }
+    .stat-card .label {
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--grey-mid);
+    }
+    .stat-card .value { font-size: 32px; font-weight: 800; color: var(--blue); line-height: 1; }
+    .stat-card .sub   { font-size: 12px; color: var(--grey-mid); }
+    .stat-card.green .value { color: var(--green); }
+    .stat-card.amber .value { color: var(--amber); }
+    .stat-card.red .value   { color: var(--red); }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--grey-mid); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--grey-light); }
+
+    /* ── TODAY BANNER ── */
+    .today-banner {
+      background: var(--white);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .today-banner .today-label {
+      background: var(--blue);
+      color: var(--white);
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; padding: 4px 10px; border-radius: 20px;
+      white-space: nowrap; margin-bottom: 6px; display: inline-block;
+    }
+    .today-banner .today-date {
+      font-size: 15px; font-weight: 800; color: var(--black); margin-bottom: 12px;
+    }
+    .today-tasks { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .today-task {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: var(--off-white); border-radius: 8px; padding: 10px 14px;
+      border: 1px solid var(--grey-light);
+    }
+    .today-task.urgent { background: var(--red-pale); border-color: #fca5a5; }
+    .today-task .t-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .today-task .t-text { font-size: 13px; font-weight: 600; color: var(--black); line-height: 1.4; }
+    .today-task .t-sub  { font-size: 11px; color: var(--grey-mid); margin-top: 2px; }
+    .due-tag {
+      background: var(--red); color: var(--white);
+      font-size: 9px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.8px; padding: 2px 7px; border-radius: 10px;
+      margin-left: 6px; vertical-align: middle;
+    }
+
+    /* ── MILESTONE TRACKER ── */
+    .milestone-tracker {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid var(--grey-light);
+      overflow: hidden;
+    }
+    .tracker-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-light);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .tracker-title { font-size: 15px; font-weight: 700; }
+    .tracker-sub   { font-size: 12px; color: var(--grey-mid); margin-top: 2px; }
+    .tracker-body  { padding: 20px 24px; display: flex; flex-direction: column; gap: 24px; }
+
+    .week-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--grey-mid);
+      margin-bottom: 10px; padding-bottom: 6px;
+      border-bottom: 1px solid var(--grey-light);
+    }
+
+    /* Day columns */
+    .day-cols-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .day-cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 800px) {
+      .day-cols-5, .day-cols-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .day-col { display: flex; flex-direction: column; }
+    .day-header {
+      text-align: center; padding: 8px 6px 12px;
+      border-bottom: 3px solid var(--grey-light);
+      margin-bottom: 12px;
+    }
+    .day-header .day-name {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--grey-mid);
+    }
+    .day-header .day-date { font-size: 13px; font-weight: 800; color: var(--black); margin-top: 2px; }
+    .day-header.is-today { border-bottom-color: var(--blue); }
+    .day-header.is-today .day-name { color: var(--blue); }
+    .day-header.is-today .day-date { color: var(--blue); }
+    .day-header.is-launch { border-bottom-color: var(--green); }
+    .day-header.is-launch .day-name { color: var(--green); }
+    .day-header.is-launch .day-date { color: var(--green); }
+
+    .indicator-dot {
+      width: 8px; height: 8px; border-radius: 50%; margin: 0 auto 4px;
+    }
+    .indicator-dot.blue  { background: var(--blue); }
+    .indicator-dot.green { background: var(--green); }
+
+    .ms-card {
+      background: var(--off-white);
+      border: 1px solid var(--grey-light);
+      border-radius: 8px; padding: 10px 12px; margin-bottom: 8px;
+      font-size: 12px; line-height: 1.4;
+      transition: box-shadow 0.15s;
+    }
+    .ms-card:last-child { margin-bottom: 0; }
+    .ms-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .ms-card.urgent   { background: var(--red-pale);   border-color: #fca5a5; }
+    .ms-card.high     { background: var(--amber-pale); border-color: #fcd34d; }
+    .ms-card.normal   { background: var(--off-white);  border-color: var(--grey-light); }
+    .ms-card.launch-c { background: var(--green-pale); border-color: #4ade80; }
+    .ms-card-title  { font-weight: 700; color: var(--black); font-size: 12px; margin-bottom: 3px; }
+    .ms-card-owner  { font-size: 10px; color: var(--grey-mid); font-weight: 600; }
+    .ms-tag {
+      display: inline-block; font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 2px 6px; border-radius: 10px; margin-top: 4px;
+    }
+    .ms-tag.critical { background: #fee2e2; color: #dc2626; }
+    .ms-tag.meeting  { background: #ede9fe; color: #6d28d9; }
+    .ms-tag.content  { background: #fef3c7; color: #d97706; }
+    .ms-tag.tech     { background: #dbeafe; color: #1e40af; }
+    .ms-tag.sales    { background: #fce7f3; color: #9d174d; }
+    .ms-tag.launch-t { background: #dcfce7; color: #16a34a; }
+    .ms-tag.assets   { background: #ede9fe; color: #6d28d9; }
+
+    .launch-flag {
+      text-align: center; padding: 14px 8px;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border: 1px solid #4ade80; border-radius: 8px; margin-bottom: 8px;
+    }
+    .launch-flag .flag-icon  { font-size: 22px; margin-bottom: 2px; }
+    .launch-flag .flag-text  { font-size: 13px; font-weight: 800; color: var(--green); }
+    .launch-flag .flag-sub   { font-size: 10px; color: #15803d; margin-top: 2px; }
+
+    /* ── Two-column layout ── */
+    .two-col {
+      display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start;
+    }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── Task Table ── */
+    .card {
+      background: var(--white); border-radius: 10px;
+      border: 1px solid var(--grey-light); overflow: hidden;
+    }
+    .card-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--grey-light);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .card-title { font-size: 15px; font-weight: 700; color: var(--black); }
+    .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 4px 12px; border-radius: 20px;
+      border: 1px solid var(--grey-light); background: var(--off-white);
+      font-size: 12px; font-weight: 600; cursor: pointer; color: var(--slate);
+      transition: all 0.15s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--blue); color: var(--white); border-color: var(--blue);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      text-align: left; padding: 10px 16px; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.6px; color: var(--grey-mid);
+      background: var(--off-white); border-bottom: 1px solid var(--grey-light);
+    }
+    tbody tr { border-bottom: 1px solid var(--grey-light); transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--blue-pale); }
+    tbody tr.hidden { display: none; }
+    td { padding: 12px 16px; vertical-align: top; }
+    td.task-name { font-weight: 600; color: var(--black); max-width: 300px; line-height: 1.4; }
+    td.task-name .notes { font-weight: 400; font-size: 11px; color: var(--grey-mid); margin-top: 3px; }
+
+    .badge {
+      display: inline-block; padding: 3px 9px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; white-space: nowrap;
+    }
+    .badge.in-progress { background: var(--blue-pale);  color: var(--blue); }
+    .badge.pending     { background: var(--amber-pale); color: var(--amber); }
+    .badge.not-started { background: var(--grey-light); color: var(--slate); }
+    .badge.complete    { background: var(--green-pale); color: var(--green); }
+    .badge.due-today   { background: var(--red-pale);   color: var(--red); }
+
+    .priority { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot.high   { background: var(--red); }
+    .dot.medium { background: var(--amber); }
+    .dot.low    { background: var(--green); }
+
+    .owner {
+      display: inline-block; background: var(--grey-light); color: var(--slate);
+      padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    }
+    .owner.tiffanie { background: #dbeafe; color: #1e40af; }
+    .owner.michelle { background: #fce7f3; color: #9d174d; }
+    .owner.paul     { background: #ede9fe; color: #6d28d9; }
+    .owner.tim      { background: #d1fae5; color: #065f46; }
+    .owner.jim      { background: #ffedd5; color: #9a3412; }
+    .owner.tbd      { background: var(--grey-light); color: var(--slate); }
+
+    /* ── Right column ── */
+    .right-col { display: flex; flex-direction: column; gap: 20px; }
+
+    .team-list { padding: 4px 0; }
+    .team-member {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 20px; border-bottom: 1px solid var(--grey-light);
+    }
+    .team-member:last-child { border-bottom: none; }
+    .avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px; flex-shrink: 0; color: var(--white);
+    }
+    .av-t  { background: #1e40af; }
+    .av-m  { background: #9d174d; }
+    .av-p  { background: #6d28d9; }
+    .av-ti { background: #065f46; }
+    .av-j  { background: #9a3412; }
+    .member-info .name { font-size: 13px; font-weight: 700; color: var(--black); }
+    .member-info .role { font-size: 11px; color: var(--grey-mid); margin-top: 1px; }
+
+    .rules-list { padding: 4px 0; }
+    .rule-item {
+      display: flex; gap: 10px; padding: 10px 20px;
+      border-bottom: 1px solid var(--grey-light);
+      font-size: 12px; line-height: 1.5; color: var(--slate);
+    }
+    .rule-item:last-child { border-bottom: none; }
+    .rule-num {
+      flex-shrink: 0; width: 20px; height: 20px;
+      background: var(--blue); color: var(--white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800; margin-top: 1px;
+    }
+
+    .progress-section { padding: 16px 20px; }
+    .progress-item { margin-bottom: 14px; }
+    .progress-item:last-child { margin-bottom: 0; }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 12px; font-weight: 600; color: var(--slate); margin-bottom: 5px;
+    }
+    .progress-bar-bg { height: 8px; background: var(--grey-light); border-radius: 4px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 4px; background: var(--blue); transition: width 0.6s ease; }
+    .progress-bar-fill.green { background: var(--green); }
+    .progress-bar-fill.amber { background: var(--amber); }
+
+    .phase-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .phase-card {
+      background: var(--white); border-radius: 10px;
+      border: 1px solid var(--grey-light); padding: 18px 20px;
+      border-top: 4px solid var(--grey-light);
+    }
+    .phase-card.active { border-top-color: var(--blue); }
+    .phase-card.done   { border-top-color: var(--green); }
+    .phase-card.future { border-top-color: var(--grey-light); opacity: 0.7; }
+    .phase-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--grey-mid); margin-bottom: 4px; }
+    .phase-name  { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 8px; }
+    .phase-items { font-size: 12px; color: var(--slate); line-height: 1.7; }
+    .phase-items li { list-style: none; padding-left: 12px; position: relative; }
+    .phase-items li::before { content: '·'; position: absolute; left: 0; color: var(--blue); }
+
+    .platform-pills { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px; }
+    .platform-pill {
+      background: var(--blue-pale); color: var(--blue); border: 1px solid #bfdbfe;
+      padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    }
+
+    footer {
+      text-align: center; font-size: 11px; color: var(--grey-mid);
+      padding: 24px; border-top: 1px solid var(--grey-light); margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .phase-row { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .countdown-banner { flex-direction: column; }
+      .countdown-units { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo-badge">JayI</div>
+    <div>
+      <div style="font-size:16px;font-weight:700;">"How To" Program</div>
+      <div style="font-size:12px;opacity:0.7;font-weight:400;">Project Management Dashboard</div>
+    </div>
+  </div>
+  <div class="header-date" id="live-date"></div>
+</header>
+
+<div class="page">
+
+  <!-- ── COUNTDOWN BANNER ── -->
+  <div class="countdown-banner">
+    <div class="countdown-left">
+      <div class="launch-label">Countdown to Launch</div>
+      <div class="launch-title">JayI "How To" Program</div>
+      <div class="launch-date">Target: Thursday, April 24, 2026</div>
+      <div class="urgency-tag" id="urgency-tag">11 days to go — let's build</div>
+    </div>
+    <div class="countdown-units">
+      <div class="countdown-unit"><div class="num" id="cd-days">—</div><div class="lbl">Days</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><div class="num" id="cd-hours">—</div><div class="lbl">Hours</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><div class="num" id="cd-mins">—</div><div class="lbl">Mins</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><div class="num" id="cd-secs">—</div><div class="lbl">Secs</div></div>
+    </div>
+  </div>
+
+  <!-- ── STAT CARDS ── -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="label">Total Tasks</div>
+      <div class="value" id="stat-total">10</div>
+      <div class="sub">Active project tasks</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="label">In Progress</div>
+      <div class="value" id="stat-inprogress">0</div>
+      <div class="sub">Currently active</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Pending</div>
+      <div class="value" id="stat-pending">0</div>
+      <div class="sub">Scheduled</div>
+    </div>
+    <div class="stat-card red">
+      <div class="label">Not Started</div>
+      <div class="value" id="stat-notstarted">0</div>
+      <div class="sub">Not yet begun</div>
+    </div>
+    <div class="stat-card green">
+      <div class="label">Complete</div>
+      <div class="value" id="stat-complete">0</div>
+      <div class="sub">Finished tasks</div>
+    </div>
+  </div>
+
+  <!-- ── TODAY BANNER ── -->
+  <div>
+    <div class="section-title">Today — Monday, April 13</div>
+    <div class="today-banner">
+      <div>
+        <div class="today-label">Today's Focus</div>
+        <div class="today-date">Monday, April 13, 2026</div>
+      </div>
+      <div class="today-tasks">
+        <div class="today-task">
+          <div class="t-icon">🧠</div>
+          <div>
+            <div class="t-text">Michelle &amp; Tiffanie — Prompts + Project Planning</div>
+            <div class="t-sub">Align on JI prompts, finalize project scope and priorities together</div>
+          </div>
+        </div>
+        <div class="today-task urgent">
+          <div class="t-icon">✍️</div>
+          <div>
+            <div class="t-text">Forbes Copy <span class="due-tag">DUE TODAY</span></div>
+            <div class="t-sub">Must be completed and submitted today — do not push to tomorrow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRE-LAUNCH MILESTONE TRACKER ── -->
+  <div>
+    <div class="section-title">Pre-Launch Milestone Tracker — Apr 14 → Apr 24</div>
+    <div class="milestone-tracker">
+      <div class="tracker-header">
+        <div>
+          <div class="tracker-title">What must be done before launch</div>
+          <div class="tracker-sub">Tasks distributed across 11 days. Launch: Thursday April 24.</div>
+        </div>
+        <div style="font-size:12px;color:var(--grey-mid);text-align:right;">
+          Launch: <strong style="color:var(--green);">Thu Apr 24</strong>
+        </div>
+      </div>
+      <div class="tracker-body">
+
+        <!-- WEEK 1: Apr 14–18 -->
+        <div>
+          <div class="week-label">Week 1 — April 14–18</div>
+          <div class="day-cols-5">
+
+            <!-- MON Apr 14 -->
+            <div class="day-col">
+              <div class="day-header">
+                <div class="day-name">Monday</div>
+                <div class="day-date">Apr 14</div>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Complete Workbook PDF — Part 1</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag content">Workbook</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Begin MN content updates (Michelle's Vision)</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag tech">MN Content</span>
+              </div>
+            </div>
+
+            <!-- TUE Apr 15 -->
+            <div class="day-col">
+              <div class="day-header">
+                <div class="day-name">Tuesday</div>
+                <div class="day-date">Apr 15</div>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Complete Workbook PDF — finalize &amp; 2026 edits</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag content">Workbook</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Continue MN content — all parts updated</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag tech">MN Content</span>
+              </div>
+            </div>
+
+            <!-- WED Apr 16 -->
+            <div class="day-col">
+              <div class="day-header">
+                <div class="day-name">Wednesday</div>
+                <div class="day-date">Apr 16</div>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Change all Mighty Networks links</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag tech">MN Links</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Change all MN thumbnails</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag tech">MN Thumbnails</span>
+              </div>
+            </div>
+
+            <!-- THU Apr 17 -->
+            <div class="day-col">
+              <div class="day-header">
+                <div class="day-name">Thursday</div>
+                <div class="day-date">Apr 17</div>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Add video instructions — sections 1–6</div>
+                <div class="ms-card-owner">Paul + Tiffanie</div>
+                <span class="ms-tag tech">Video</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Add all assets to Airtable — begin</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag assets">Airtable</span>
+              </div>
+            </div>
+
+            <!-- FRI Apr 18 -->
+            <div class="day-col">
+              <div class="day-header">
+                <div class="day-name">Friday</div>
+                <div class="day-date">Apr 18</div>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Add video instructions — sections 7–12 + Intro</div>
+                <div class="ms-card-owner">Paul + Tiffanie</div>
+                <span class="ms-tag tech">Video</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Continue adding all assets to Airtable</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag assets">Airtable</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- WEEK 2: Apr 21–24 -->
+        <div>
+          <div class="week-label">Week 2 — April 21–24 (Launch Week)</div>
+          <div class="day-cols-4">
+
+            <!-- MON Apr 21 -->
+            <div class="day-col">
+              <div class="day-header">
+                <div class="day-name">Monday</div>
+                <div class="day-date">Apr 21</div>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Finalize all Airtable assets</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag assets">Airtable</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Research affiliate program opportunities</div>
+                <div class="ms-card-owner">TBD</div>
+                <span class="ms-tag sales">Affiliates</span>
+              </div>
+            </div>
+
+            <!-- TUE Apr 22 -->
+            <div class="day-col">
+              <div class="day-header">
+                <div class="day-name">Tuesday</div>
+                <div class="day-date">Apr 22</div>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Sales Process — email database</div>
+                <div class="ms-card-owner">Michelle + TBD</div>
+                <span class="ms-tag sales">Sales</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Sales Process — social media posts</div>
+                <div class="ms-card-owner">Michelle + TBD</div>
+                <span class="ms-tag sales">Sales</span>
+              </div>
+            </div>
+
+            <!-- WED Apr 23 -->
+            <div class="day-col">
+              <div class="day-header">
+                <div class="day-name">Wednesday</div>
+                <div class="day-date">Apr 23</div>
+              </div>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">Final QA — all modules, links, workbook</div>
+                <div class="ms-card-owner">Tiffanie + Jim</div>
+                <span class="ms-tag critical">Final QA</span>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Sales Process — any additional Michelle items</div>
+                <div class="ms-card-owner">Michelle</div>
+                <span class="ms-tag sales">Sales</span>
+              </div>
+            </div>
+
+            <!-- THU Apr 24 — LAUNCH -->
+            <div class="day-col">
+              <div class="day-header is-launch">
+                <div class="indicator-dot green"></div>
+                <div class="day-name">Thursday — Launch</div>
+                <div class="day-date">Apr 24</div>
+              </div>
+              <div class="launch-flag">
+                <div class="flag-icon">🚀</div>
+                <div class="flag-text">LAUNCH DAY</div>
+                <div class="flag-sub">JayI "How To" Program</div>
+              </div>
+              <div class="ms-card launch-c">
+                <div class="ms-card-title">Michelle + Tiffanie final sign-off</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag launch-t">Launch</span>
+              </div>
+              <div class="ms-card launch-c">
+                <div class="ms-card-title">Program goes live in Mighty Networks</div>
+                <div class="ms-card-owner">Full Team</div>
+                <span class="ms-tag launch-t">Launch</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE OVERVIEW ── -->
+  <div>
+    <div class="section-title">Project Phases</div>
+    <div class="phase-row">
+      <div class="phase-card done">
+        <div class="phase-label">Phase 1 — Done</div>
+        <div class="phase-name">Foundation</div>
+        <ul class="phase-items">
+          <li>Mighty Networks setup</li>
+          <li>Module structure defined</li>
+          <li>Workbook PDF drafted</li>
+          <li>Airtable hub created</li>
+        </ul>
+      </div>
+      <div class="phase-card active">
+        <div class="phase-label">Phase 2 — Active NOW</div>
+        <div class="phase-name">Build &amp; Format</div>
+        <ul class="phase-items">
+          <li>Workbook PDF — 2026 updates</li>
+          <li>MN content to match Michelle's Vision</li>
+          <li>MN links + thumbnails updated</li>
+          <li>Video instructions (12 sections + intro)</li>
+          <li>All assets to Airtable</li>
+          <li>Forbes copy (today)</li>
+        </ul>
+      </div>
+      <div class="phase-card future">
+        <div class="phase-label">Phase 3 — Launch Week</div>
+        <div class="phase-name">Launch &amp; Sell</div>
+        <ul class="phase-items">
+          <li>Affiliate research</li>
+          <li>Sales process (email, social, other)</li>
+          <li>Final QA with Jim</li>
+          <li>Michelle + Tiffanie sign-off</li>
+          <li>Program goes live Apr 24</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TASK BOARD + RIGHT SIDEBAR ── -->
+  <div class="two-col">
+
+    <div>
+      <div class="section-title">Task Board</div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">All Tasks</div>
+          <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterTasks('all',this)">All</button>
+            <button class="filter-btn" onclick="filterTasks('due-today',this)">Due Today</button>
+            <button class="filter-btn" onclick="filterTasks('in-progress',this)">In Progress</button>
+            <button class="filter-btn" onclick="filterTasks('pending',this)">Pending</button>
+            <button class="filter-btn" onclick="filterTasks('not-started',this)">Not Started</button>
+            <button class="filter-btn" onclick="filterTasks('complete',this)">Complete</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Task</th>
+              <th>Owner</th>
+              <th>Status</th>
+              <th>Priority</th>
+            </tr>
+          </thead>
+          <tbody id="task-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="right-col">
+
+      <div>
+        <div class="section-title">Progress Overview</div>
+        <div class="card">
+          <div class="progress-section">
+            <div class="progress-item">
+              <div class="progress-label"><span>Workbook PDF (2026)</span><span>10%</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill amber" style="width:10%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>MN Content Updates</span><span>0%</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>MN Links + Thumbnails</span><span>0%</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>Video Instructions</span><span>0%</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>Airtable Assets</span><span>0%</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill amber" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>Sales Process</span><span>0%</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill green" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Team</div>
+        <div class="card">
+          <div class="team-list">
+            <div class="team-member">
+              <div class="avatar av-t">T</div>
+              <div class="member-info">
+                <div class="name">Tiffanie</div>
+                <div class="role">Project Manager · Canva · Workbook · MN Formatting</div>
+              </div>
+            </div>
+            <div class="team-member">
+              <div class="avatar av-m">M</div>
+              <div class="member-info">
+                <div class="name">Michelle Abraham</div>
+                <div class="role">Program Owner · Content Lead · Final Approvals</div>
+              </div>
+            </div>
+            <div class="team-member">
+              <div class="avatar av-p">P</div>
+              <div class="member-info">
+                <div class="name">Paul Cowen</div>
+                <div class="role">Technical Lead · AI/Video · NotebookLM · Canva</div>
+              </div>
+            </div>
+            <div class="team-member">
+              <div class="avatar av-ti">Ti</div>
+              <div class="member-info">
+                <div class="name">Tim</div>
+                <div class="role">Mighty Networks · Module Part Restructuring</div>
+              </div>
+            </div>
+            <div class="team-member">
+              <div class="avatar av-j">J</div>
+              <div class="member-info">
+                <div class="name">Jim</div>
+                <div class="role">QA Lead · Onboarding Review</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Platform Stack</div>
+        <div class="card">
+          <div class="platform-pills">
+            <span class="platform-pill">Mighty Networks</span>
+            <span class="platform-pill">Airtable</span>
+            <span class="platform-pill">Google Drive</span>
+            <span class="platform-pill">Canva</span>
+            <span class="platform-pill">NotebookLM</span>
+            <span class="platform-pill">JI (Jay Intelligence)</span>
+            <span class="platform-pill">Claude Chrome Ext.</span>
+            <span class="platform-pill">Loom</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── KEY RULES ── -->
+  <div>
+    <div class="section-title">Key Rules &amp; Constraints</div>
+    <div class="card">
+      <div class="rules-list">
+        <div class="rule-item"><div class="rule-num">1</div><div>Never do a find/replace-all on copy — review each instance individually</div></div>
+        <div class="rule-item"><div class="rule-num">2</div><div>Jay's voice is never replaced or cloned — visual layer only</div></div>
+        <div class="rule-item"><div class="rule-num">3</div><div>Always archive originals — one backup is no backup</div></div>
+        <div class="rule-item"><div class="rule-num">4</div><div>JI Prompts are not final — do not export until Michelle approves after testing</div></div>
+        <div class="rule-item"><div class="rule-num">5</div><div>Do not edit curriculum content — only format, link, and present visually</div></div>
+        <div class="rule-item"><div class="rule-num">6</div><div>Content must stay platform-portable — nothing locked inside Mighty Networks</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  JayI "How To" Program · Project Dashboard · Last updated April 2026 · Built for Tiffanie (PM)
+</footer>
+
+<script>
+  // ── Live date ──
+  document.getElementById('live-date').textContent = new Date().toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+  // ── Countdown to April 24 ──
+  const launchDate = new Date('2026-04-24T23:59:59');
+  function updateCountdown() {
+    const diff = launchDate - new Date();
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '0');
+      document.getElementById('urgency-tag').textContent = 'Launch day is here!';
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    const secs  = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+    const tag = document.getElementById('urgency-tag');
+    if (days === 0)     tag.textContent = 'Launch day! Final checks only.';
+    else if (days <= 2) tag.textContent = 'Critical window — heads down!';
+    else if (days <= 5) tag.textContent = 'Final stretch — stay focused';
+    else                tag.textContent = `${days} days to go — let's build`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── Task data ──
+  const tasks = [
+    {
+      id: 1,
+      name: 'Michelle & Tiffanie — Prompts + Project Planning',
+      notes: 'Align on JI prompts, finalize project scope and priorities together',
+      owner: 'michelle', ownerLabel: 'Michelle + Tiffanie',
+      status: 'due-today', statusLabel: 'Due Today', priority: 'high'
+    },
+    {
+      id: 2,
+      name: 'Forbes Copy',
+      notes: 'Must be completed and submitted today',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'due-today', statusLabel: 'Due Today', priority: 'high'
+    },
+    {
+      id: 3,
+      name: 'Complete Workbook PDF with 2026 changes',
+      notes: 'One unified PDF — update language, headers, fillable fields to 2026 standard',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'pending', statusLabel: 'Pending', priority: 'high'
+    },
+    {
+      id: 4,
+      name: 'Change all Mighty Networks parts content to match Michelle\'s Vision',
+      notes: 'Review and update every section to align with program direction',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'pending', statusLabel: 'Pending', priority: 'high'
+    },
+    {
+      id: 5,
+      name: 'Change all Mighty Networks links',
+      notes: 'Update every link across all modules — no broken or outdated links at launch',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'pending', statusLabel: 'Pending', priority: 'high'
+    },
+    {
+      id: 6,
+      name: 'Change Mighty Networks thumbnails',
+      notes: 'Update all module/section thumbnails to match JI brand (dark, clean)',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'pending', statusLabel: 'Pending', priority: 'medium'
+    },
+    {
+      id: 7,
+      name: 'Add video instructions to each section',
+      notes: '12 sections + 1 intro video — Loom-style walkthroughs for each',
+      owner: 'paul', ownerLabel: 'Paul + Tiffanie',
+      status: 'not-started', statusLabel: 'Not Started', priority: 'high'
+    },
+    {
+      id: 8,
+      name: 'Add all assets to Airtable',
+      notes: 'Copy, links, workbook files, images — everything centralized',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'pending', statusLabel: 'Pending', priority: 'medium'
+    },
+    {
+      id: 9,
+      name: 'Research affiliate program opportunities',
+      notes: 'One of the last steps — part of the sales process phase',
+      owner: 'tbd', ownerLabel: 'TBD',
+      status: 'not-started', statusLabel: 'Not Started', priority: 'low'
+    },
+    {
+      id: 10,
+      name: 'Sales Process',
+      notes: 'Email database, social media posts, and anything else Michelle identifies — scope TBD',
+      owner: 'michelle', ownerLabel: 'Michelle + TBD',
+      status: 'not-started', statusLabel: 'Not Started', priority: 'medium'
+    },
+  ];
+
+  function renderTasks() {
+    const tbody = document.getElementById('task-body');
+    tbody.innerHTML = '';
+    const counts = { 'due-today':0, 'in-progress':0, pending:0, 'not-started':0, complete:0 };
+    tasks.forEach(t => {
+      counts[t.status] = (counts[t.status] || 0) + 1;
+      const row = document.createElement('tr');
+      row.dataset.status = t.status;
+      row.innerHTML = `
+        <td style="color:var(--grey-mid);font-size:12px;font-weight:700;">${t.id}</td>
+        <td class="task-name">${t.name}${t.notes ? `<div class="notes">${t.notes}</div>` : ''}</td>
+        <td><span class="owner ${t.owner}">${t.ownerLabel}</span></td>
+        <td><span class="badge ${t.status}">${t.statusLabel}</span></td>
+        <td><div class="priority"><div class="dot ${t.priority}"></div>${t.priority.charAt(0).toUpperCase()+t.priority.slice(1)}</div></td>
+      `;
+      tbody.appendChild(row);
+    });
+    document.getElementById('stat-total').textContent       = tasks.length;
+    document.getElementById('stat-inprogress').textContent  = (counts['in-progress'] || 0) + (counts['due-today'] || 0);
+    document.getElementById('stat-pending').textContent     = counts['pending'] || 0;
+    document.getElementById('stat-notstarted').textContent  = counts['not-started'] || 0;
+    document.getElementById('stat-complete').textContent    = counts['complete'] || 0;
+  }
+
+  function filterTasks(status, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#task-body tr').forEach(row => {
+      row.classList.toggle('hidden', status !== 'all' && row.dataset.status !== status);
+    });
+  }
+
+  renderTasks();
+</script>
+
+</body>
+</html>
