@@ -246,8 +246,25 @@
     .ms-card.normal   { background: var(--off-white);  border-color: var(--grey-light); }
     .ms-card.launch-c { background: var(--green-pale); border-color: #4ade80; }
     .ms-card-title  { font-weight: 700; color: var(--black); font-size: 12px; margin-bottom: 3px; }
-    .ms-card-owner  { font-size: 12px; color: var(--black); font-weight: 800; margin-top: 4px; }
+    .ms-card-owner  { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
     .ms-tag, .ms-tag.meeting, .ms-tag.tech, .ms-tag.content, .ms-tag.assets, .ms-tag.sales, .ms-tag.critical, .ms-tag.launch-t { display: none !important; }
+    .owner-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--white);
+      white-space: nowrap;
+    }
+    .op-tiffanie  { background: #1e40af; }
+    .op-michelle  { background: #9d174d; }
+    .op-max       { background: #6d28d9; }
+    .op-paul      { background: #5b21b6; }
+    .op-tim       { background: #065f46; }
+    .op-jim       { background: #9a3412; }
+    .op-tbd       { background: #6b7280; }
+    .op-fullteam  { background: #1a4a8a; }
     .ms-tag {
       display: inline-block; font-size: 9px; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.5px;
@@ -1107,6 +1124,32 @@
   }
 
   renderTasks();
+
+  // ── Owner pills for milestone tracker cards ──
+  const ownerColors = {
+    'tiffanie':  'op-tiffanie',
+    'michelle':  'op-michelle',
+    'max':       'op-max',
+    'paul':      'op-paul',
+    'tim':       'op-tim',
+    'jim':       'op-jim',
+    'tbd':       'op-tbd',
+    'full team': 'op-fullteam',
+  };
+
+  document.querySelectorAll('.ms-card-owner').forEach(el => {
+    const raw = el.textContent.trim();
+    const people = raw.split(/\s*\+\s*/);
+    el.innerHTML = '';
+    people.forEach(person => {
+      const key = person.trim().toLowerCase();
+      const colorClass = ownerColors[key] || 'op-tbd';
+      const pill = document.createElement('span');
+      pill.className = `owner-pill ${colorClass}`;
+      pill.textContent = person.trim();
+      el.appendChild(pill);
+    });
+  });
 </script>
 
 </body>
