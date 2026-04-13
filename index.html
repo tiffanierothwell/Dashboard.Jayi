@@ -401,6 +401,23 @@
     .phase-items li::before { content: '·'; position: absolute; left: 0; color: var(--blue); }
 
     .platform-pills { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px; }
+
+    /* ── Next Meetings card ── */
+    .milestone-list { padding: 4px 0; }
+    .milestone-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 12px 20px; border-bottom: 1px solid var(--grey-light);
+      font-size: 13px;
+    }
+    .milestone-item:last-child { border-bottom: none; }
+    .ms-date { flex-shrink: 0; width: 72px; font-size: 11px; color: var(--blue); font-weight: 700; line-height: 1.4; }
+    .ms-text { color: var(--slate); line-height: 1.5; }
+    .ms-text strong { color: var(--black); }
+
+    /* ── Deadline day header ── */
+    .day-header.is-deadline { border-bottom-color: var(--red); }
+    .day-header.is-deadline .day-name { color: var(--red); }
+    .day-header.is-deadline .day-date { color: var(--red); }
     .platform-pill {
       background: var(--blue-pale); color: var(--blue); border: 1px solid #bfdbfe;
       padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
@@ -495,15 +512,32 @@
           <div class="t-icon">🧠</div>
           <div>
             <div class="t-text">Michelle &amp; Tiffanie — Prompts + Project Planning</div>
-            <div class="t-sub">Align on JI prompts, finalize project scope and priorities together</div>
+            <div class="t-sub">Align on prompts, prep for Max, review sections together</div>
           </div>
         </div>
-        <div class="today-task urgent">
-          <div class="t-icon">✍️</div>
+        <div class="today-task">
+          <div class="t-icon">📅</div>
           <div>
-            <div class="t-text">Forbes Copy <span class="due-tag">DUE TODAY</span></div>
-            <div class="t-sub">Must be completed and submitted today — do not push to tomorrow</div>
+            <div class="t-text">Tomorrow — Audit MN sections &amp; Michelle + Tiffanie meeting</div>
+            <div class="t-sub">Objective: identify sections that are too long; prep for Max (Friday)</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NEXT MEETINGS ── -->
+  <div>
+    <div class="section-title">Next Meetings</div>
+    <div class="card">
+      <div class="milestone-list">
+        <div class="milestone-item">
+          <div class="ms-date" style="color:var(--red);font-weight:800;">Tomorrow<br>Apr 14</div>
+          <div class="ms-text"><strong>Michelle &amp; Tiffanie</strong> — Go through sections, identify which ones are too long, prep for Max session on Friday</div>
+        </div>
+        <div class="milestone-item">
+          <div class="ms-date" style="color:var(--amber);font-weight:800;">Friday<br>Apr 18</div>
+          <div class="ms-text"><strong>Prompts with Max</strong> — Meeting already set. Finalize JI prompts, add two closing prompts (Session 12 + Submit your question)</div>
         </div>
       </div>
     </div>
@@ -526,7 +560,7 @@
 
         <!-- WEEK 1: Apr 14–18 -->
         <div>
-          <div class="week-label">Week 1 — April 14–18</div>
+          <div class="week-label">Week 1 — April 14–18 · Deadlines: Friday Apr 18</div>
           <div class="day-cols-5">
 
             <!-- MON Apr 14 -->
@@ -535,15 +569,20 @@
                 <div class="day-name">Monday</div>
                 <div class="day-date">Apr 14</div>
               </div>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">Audit MN sections — which are too long?</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag tech">MN Audit</span>
+              </div>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">Michelle &amp; Tiffanie meeting — prep for Max, review sections</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag meeting">Meeting</span>
+              </div>
               <div class="ms-card high">
-                <div class="ms-card-title">Complete Workbook PDF — Part 1</div>
+                <div class="ms-card-title">Workbook PDF 2026 — begin</div>
                 <div class="ms-card-owner">Tiffanie</div>
                 <span class="ms-tag content">Workbook</span>
-              </div>
-              <div class="ms-card normal">
-                <div class="ms-card-title">Begin MN content updates (Michelle's Vision)</div>
-                <div class="ms-card-owner">Tiffanie</div>
-                <span class="ms-tag tech">MN Content</span>
               </div>
             </div>
 
@@ -554,14 +593,19 @@
                 <div class="day-date">Apr 15</div>
               </div>
               <div class="ms-card high">
-                <div class="ms-card-title">Complete Workbook PDF — finalize &amp; 2026 edits</div>
+                <div class="ms-card-title">Workbook PDF 2026 — continue</div>
                 <div class="ms-card-owner">Tiffanie</div>
                 <span class="ms-tag content">Workbook</span>
               </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">MN edits — welcome section + FAQs</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag tech">MN Edits</span>
+              </div>
               <div class="ms-card normal">
-                <div class="ms-card-title">Continue MN content — all parts updated</div>
-                <div class="ms-card-owner">Tiffanie</div>
-                <span class="ms-tag tech">MN Content</span>
+                <div class="ms-card-title">Forbes Landing Page — begin drafting</div>
+                <div class="ms-card-owner">Michelle</div>
+                <span class="ms-tag sales">Forbes</span>
               </div>
             </div>
 
@@ -572,14 +616,19 @@
                 <div class="day-date">Apr 16</div>
               </div>
               <div class="ms-card high">
-                <div class="ms-card-title">Change all Mighty Networks links</div>
+                <div class="ms-card-title">Workbook PDF 2026 — finalize</div>
                 <div class="ms-card-owner">Tiffanie</div>
-                <span class="ms-tag tech">MN Links</span>
+                <span class="ms-tag content">Workbook</span>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">MN edits — re-format every section (shorten as needed)</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag tech">MN Edits</span>
               </div>
               <div class="ms-card normal">
-                <div class="ms-card-title">Change all MN thumbnails</div>
-                <div class="ms-card-owner">Tiffanie</div>
-                <span class="ms-tag tech">MN Thumbnails</span>
+                <div class="ms-card-title">Client Welcome email — draft</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag content">Welcome Email</span>
               </div>
             </div>
 
@@ -590,32 +639,47 @@
                 <div class="day-date">Apr 17</div>
               </div>
               <div class="ms-card high">
-                <div class="ms-card-title">Add video instructions — sections 1–6</div>
-                <div class="ms-card-owner">Paul + Tiffanie</div>
-                <span class="ms-tag tech">Video</span>
+                <div class="ms-card-title">Client Welcome email — finalize &amp; review</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag content">Welcome Email</span>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Forbes Landing Page — finalize + UTM link</div>
+                <div class="ms-card-owner">Michelle</div>
+                <span class="ms-tag sales">Forbes</span>
               </div>
               <div class="ms-card normal">
-                <div class="ms-card-title">Add all assets to Airtable — begin</div>
+                <div class="ms-card-title">MN edits — copy sections review</div>
                 <div class="ms-card-owner">Tiffanie</div>
-                <span class="ms-tag assets">Airtable</span>
+                <span class="ms-tag tech">MN Edits</span>
               </div>
             </div>
 
             <!-- FRI Apr 18 -->
             <div class="day-col">
-              <div class="day-header">
-                <div class="day-name">Friday</div>
+              <div class="day-header is-deadline">
+                <div class="day-name">Friday — Deadlines</div>
                 <div class="day-date">Apr 18</div>
               </div>
-              <div class="ms-card high">
-                <div class="ms-card-title">Add video instructions — sections 7–12 + Intro</div>
-                <div class="ms-card-owner">Paul + Tiffanie</div>
-                <span class="ms-tag tech">Video</span>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">⭐ Client Welcome email — DUE</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag critical">Due</span>
               </div>
-              <div class="ms-card normal">
-                <div class="ms-card-title">Continue adding all assets to Airtable</div>
-                <div class="ms-card-owner">Tiffanie</div>
-                <span class="ms-tag assets">Airtable</span>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">⭐ MN edits complete — DUE</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag critical">Due</span>
+              </div>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">⭐ Forbes Landing Page — DUE</div>
+                <div class="ms-card-owner">Michelle</div>
+                <span class="ms-tag critical">Due</span>
+              </div>
+              <div class="ms-card urgent">
+                <div class="ms-card-title">🗓️ Prompts session with Max</div>
+                <div class="ms-card-owner">Michelle + Max</div>
+                <span class="ms-tag meeting">Meeting Set</span>
               </div>
             </div>
 
@@ -624,7 +688,7 @@
 
         <!-- WEEK 2: Apr 21–24 -->
         <div>
-          <div class="week-label">Week 2 — April 21–24 (Launch Week)</div>
+          <div class="week-label">Week 2 — April 21–24 · Launch Week</div>
           <div class="day-cols-4">
 
             <!-- MON Apr 21 -->
@@ -633,15 +697,20 @@
                 <div class="day-name">Monday</div>
                 <div class="day-date">Apr 21</div>
               </div>
-              <div class="ms-card normal">
-                <div class="ms-card-title">Finalize all Airtable assets</div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Spiffy order form — begin (what they're getting, T&amp;S)</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag tech">Spiffy</span>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">Branding — color codes, logo JayI, fonts, banner</div>
                 <div class="ms-card-owner">Tiffanie</div>
-                <span class="ms-tag assets">Airtable</span>
+                <span class="ms-tag content">Branding</span>
               </div>
               <div class="ms-card normal">
-                <div class="ms-card-title">Research affiliate program opportunities</div>
-                <div class="ms-card-owner">TBD</div>
-                <span class="ms-tag sales">Affiliates</span>
+                <div class="ms-card-title">Copy Sections (Tiffanie)</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag content">Copy</span>
               </div>
             </div>
 
@@ -652,14 +721,19 @@
                 <div class="day-date">Apr 22</div>
               </div>
               <div class="ms-card high">
-                <div class="ms-card-title">Sales Process — email database</div>
-                <div class="ms-card-owner">Michelle + TBD</div>
-                <span class="ms-tag sales">Sales</span>
+                <div class="ms-card-title">Spiffy — finalize, test email confirmation</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag tech">Spiffy</span>
+              </div>
+              <div class="ms-card high">
+                <div class="ms-card-title">All videos — begin (onboarding welcome + section 1)</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag tech">Video</span>
               </div>
               <div class="ms-card normal">
-                <div class="ms-card-title">Sales Process — social media posts</div>
-                <div class="ms-card-owner">Michelle + TBD</div>
-                <span class="ms-tag sales">Sales</span>
+                <div class="ms-card-title">Add two prompts — Session 12 + Submit your question</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag content">Prompts</span>
               </div>
             </div>
 
@@ -669,15 +743,25 @@
                 <div class="day-name">Wednesday</div>
                 <div class="day-date">Apr 23</div>
               </div>
-              <div class="ms-card urgent">
-                <div class="ms-card-title">Final QA — all modules, links, workbook</div>
-                <div class="ms-card-owner">Tiffanie + Jim</div>
-                <span class="ms-tag critical">Final QA</span>
+              <div class="ms-card high">
+                <div class="ms-card-title">All videos — continue remaining sections</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag tech">Video</span>
               </div>
               <div class="ms-card high">
-                <div class="ms-card-title">Sales Process — any additional Michelle items</div>
-                <div class="ms-card-owner">Michelle</div>
-                <span class="ms-tag sales">Sales</span>
+                <div class="ms-card-title">One full test straight through</div>
+                <div class="ms-card-owner">Michelle + Tiffanie</div>
+                <span class="ms-tag critical">Full Test</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Advertising &amp; Marketing — mass email, affiliates, social media</div>
+                <div class="ms-card-owner">Michelle + TBD</div>
+                <span class="ms-tag sales">Marketing</span>
+              </div>
+              <div class="ms-card normal">
+                <div class="ms-card-title">Add everything to Airtable</div>
+                <div class="ms-card-owner">Tiffanie</div>
+                <span class="ms-tag assets">Airtable</span>
               </div>
             </div>
 
@@ -796,23 +880,23 @@
               <div class="progress-bar-bg"><div class="progress-bar-fill amber" style="width:10%"></div></div>
             </div>
             <div class="progress-item">
-              <div class="progress-label"><span>MN Content Updates</span><span>0%</span></div>
+              <div class="progress-label"><span>MN Edits</span><span>5%</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:5%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>Client Welcome Email</span><span>0%</span></div>
               <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
             </div>
             <div class="progress-item">
-              <div class="progress-label"><span>MN Links + Thumbnails</span><span>0%</span></div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
-            </div>
-            <div class="progress-item">
-              <div class="progress-label"><span>Video Instructions</span><span>0%</span></div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
-            </div>
-            <div class="progress-item">
-              <div class="progress-label"><span>Airtable Assets</span><span>0%</span></div>
+              <div class="progress-label"><span>Forbes Landing Page</span><span>0%</span></div>
               <div class="progress-bar-bg"><div class="progress-bar-fill amber" style="width:0%"></div></div>
             </div>
             <div class="progress-item">
-              <div class="progress-label"><span>Sales Process</span><span>0%</span></div>
+              <div class="progress-label"><span>Videos (All Sections)</span><span>0%</span></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-label"><span>Advertising &amp; Marketing</span><span>0%</span></div>
               <div class="progress-bar-bg"><div class="progress-bar-fill green" style="width:0%"></div></div>
             </div>
           </div>
@@ -867,6 +951,7 @@
         <div class="card">
           <div class="platform-pills">
             <span class="platform-pill">Mighty Networks</span>
+            <span class="platform-pill">Spiffy</span>
             <span class="platform-pill">Airtable</span>
             <span class="platform-pill">Google Drive</span>
             <span class="platform-pill">Canva</span>
@@ -938,71 +1023,85 @@
   const tasks = [
     {
       id: 1,
-      name: 'Michelle & Tiffanie — Prompts + Project Planning',
-      notes: 'Align on JI prompts, finalize project scope and priorities together',
-      owner: 'michelle', ownerLabel: 'Michelle + Tiffanie',
-      status: 'due-today', statusLabel: 'Due Today', priority: 'high'
+      name: 'Full Workbook — 2026 Version',
+      notes: 'One complete PDF with all 2026 changes — due this week',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'in-progress', statusLabel: 'In Progress', priority: 'high'
     },
     {
       id: 2,
-      name: 'Forbes Copy',
-      notes: 'Must be completed and submitted today',
-      owner: 'tiffanie', ownerLabel: 'Tiffanie',
-      status: 'due-today', statusLabel: 'Due Today', priority: 'high'
+      name: 'Finalize Order Form Page in Spiffy',
+      notes: 'Describe what they\'re getting · Terms & Service · Test email confirmation — due next week',
+      owner: 'michelle', ownerLabel: 'Michelle + Tiffanie',
+      status: 'not-started', statusLabel: 'Not Started', priority: 'high'
     },
     {
       id: 3,
-      name: 'Complete Workbook PDF with 2026 changes',
-      notes: 'One unified PDF — update language, headers, fillable fields to 2026 standard',
-      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      name: 'Client Welcome Email — Formal Onboarding',
+      notes: 'How to navigate JayI & Mighty Networks, what to expect · Loom video + text · Shortcuts, links, FAQ — due this Friday',
+      owner: 'michelle', ownerLabel: 'Michelle + Tiffanie',
       status: 'pending', statusLabel: 'Pending', priority: 'high'
     },
     {
       id: 4,
-      name: 'Change all Mighty Networks parts content to match Michelle\'s Vision',
-      notes: 'Review and update every section to align with program direction',
-      owner: 'tiffanie', ownerLabel: 'Tiffanie',
-      status: 'pending', statusLabel: 'Pending', priority: 'high'
+      name: 'Mighty Networks Edits',
+      notes: 'Welcome section + FAQs · Re-format every section · Audit section length (tomorrow) — due this Friday',
+      owner: 'michelle', ownerLabel: 'Michelle + Tiffanie',
+      status: 'in-progress', statusLabel: 'In Progress', priority: 'high'
     },
     {
       id: 5,
-      name: 'Change all Mighty Networks links',
-      notes: 'Update every link across all modules — no broken or outdated links at launch',
-      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      name: 'Prompts',
+      notes: 'Add two closing prompts: (1) End of Session 12 — "Congratulations, let\'s get your summary" · (2) "Submit your question" — Friday session with Max',
+      owner: 'michelle', ownerLabel: 'Michelle + Max',
       status: 'pending', statusLabel: 'Pending', priority: 'high'
     },
     {
       id: 6,
-      name: 'Change Mighty Networks thumbnails',
-      notes: 'Update all module/section thumbnails to match JI brand (dark, clean)',
+      name: 'Copy Sections',
+      notes: 'Tiffanie — due next week',
       owner: 'tiffanie', ownerLabel: 'Tiffanie',
-      status: 'pending', statusLabel: 'Pending', priority: 'medium'
+      status: 'not-started', statusLabel: 'Not Started', priority: 'medium'
     },
     {
       id: 7,
-      name: 'Add video instructions to each section',
-      notes: '12 sections + 1 intro video — Loom-style walkthroughs for each',
-      owner: 'paul', ownerLabel: 'Paul + Tiffanie',
-      status: 'not-started', statusLabel: 'Not Started', priority: 'high'
+      name: 'Add Everything to Airtable',
+      notes: 'All assets, links, copy, and files centralized in Airtable',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'not-started', statusLabel: 'Not Started', priority: 'medium'
     },
     {
       id: 8,
-      name: 'Add all assets to Airtable',
-      notes: 'Copy, links, workbook files, images — everything centralized',
-      owner: 'tiffanie', ownerLabel: 'Tiffanie',
-      status: 'pending', statusLabel: 'Pending', priority: 'medium'
+      name: 'Forbes Communication Landing Page',
+      notes: 'Link to sales page (UTM\'d) · Include expectation of date to be done — due this Friday',
+      owner: 'michelle', ownerLabel: 'Michelle',
+      status: 'pending', statusLabel: 'Pending', priority: 'high'
     },
     {
       id: 9,
-      name: 'Research affiliate program opportunities',
-      notes: 'One of the last steps — part of the sales process phase',
-      owner: 'tbd', ownerLabel: 'TBD',
-      status: 'not-started', statusLabel: 'Not Started', priority: 'low'
+      name: 'Branding',
+      notes: 'Color codes · Logo JayI · Fonts · Banner — due next week',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'not-started', statusLabel: 'Not Started', priority: 'medium'
     },
     {
       id: 10,
-      name: 'Sales Process',
-      notes: 'Email database, social media posts, and anything else Michelle identifies — scope TBD',
+      name: 'One Full Test Straight Through',
+      notes: 'Complete end-to-end walkthrough of the program — due next week',
+      owner: 'michelle', ownerLabel: 'Michelle + Tiffanie',
+      status: 'not-started', statusLabel: 'Not Started', priority: 'high'
+    },
+    {
+      id: 11,
+      name: 'All Videos for Each Section',
+      notes: 'Onboarding Welcome · Section 1 Intro · 30s: How to work JayI · 30s: How to work MN · 30s: Using both · FAQ — due next week',
+      owner: 'tiffanie', ownerLabel: 'Tiffanie',
+      status: 'not-started', statusLabel: 'Not Started', priority: 'high'
+    },
+    {
+      id: 12,
+      name: 'Advertising & Marketing',
+      notes: 'Mass email · Affiliates research · Social media (JayI vs Jay · JayI vs ChatGPT) — due end of next week',
       owner: 'michelle', ownerLabel: 'Michelle + TBD',
       status: 'not-started', statusLabel: 'Not Started', priority: 'medium'
     },
