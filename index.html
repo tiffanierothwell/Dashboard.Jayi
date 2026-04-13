@@ -248,6 +248,16 @@
     .ms-card-title  { font-weight: 700; color: var(--black); font-size: 12px; margin-bottom: 3px; }
     .ms-card-owner  { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
     .ms-tag, .ms-tag.meeting, .ms-tag.tech, .ms-tag.content, .ms-tag.assets, .ms-tag.sales, .ms-tag.critical, .ms-tag.launch-t { display: none !important; }
+    .ms-time {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--grey-mid);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .ms-time::before { content: '⏱'; font-size: 10px; }
     .owner-pill {
       display: inline-block;
       padding: 2px 8px;
@@ -591,8 +601,8 @@
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">Michelle &amp; Tiffanie — Prompts + Project Planning</div>
+                <div class="ms-time">90 mins</div>
                 <div class="ms-card-owner">Michelle + Tiffanie</div>
-                <span class="ms-tag meeting">Meeting</span>
               </div>
             </div>
 
@@ -604,23 +614,23 @@
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">Michelle &amp; Tiffanie meeting — review sections, prep for Max</div>
+                <div class="ms-time">30 mins</div>
                 <div class="ms-card-owner">Michelle + Tiffanie</div>
-                <span class="ms-tag meeting">Meeting</span>
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">Audit MN sections — which are too long?</div>
+                <div class="ms-time">60 mins</div>
                 <div class="ms-card-owner">Michelle + Tiffanie</div>
-                <span class="ms-tag tech">MN Audit</span>
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">Review Airtable together</div>
+                <div class="ms-time">15 mins</div>
                 <div class="ms-card-owner">Michelle + Tiffanie</div>
-                <span class="ms-tag assets">Airtable</span>
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">Review old marketing pieces &amp; brand kit</div>
+                <div class="ms-time">10 mins</div>
                 <div class="ms-card-owner">Michelle + Tiffanie</div>
-                <span class="ms-tag content">Branding</span>
               </div>
             </div>
 
@@ -632,8 +642,8 @@
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">Forbes Landing Page + UTM link</div>
+                <div class="ms-time">60 mins</div>
                 <div class="ms-card-owner">Michelle</div>
-                <span class="ms-tag sales">Forbes</span>
               </div>
             </div>
 
@@ -645,23 +655,18 @@
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">Full Workbook PDF — 2026 version</div>
+                <div class="ms-time">4 hours</div>
                 <div class="ms-card-owner">Tiffanie</div>
-                <span class="ms-tag content">Workbook</span>
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">Client Welcome Email — formal onboarding</div>
+                <div class="ms-time">15 mins</div>
                 <div class="ms-card-owner">Michelle + Tiffanie</div>
-                <span class="ms-tag content">Welcome Email</span>
-              </div>
-              <div class="ms-card urgent">
-                <div class="ms-card-title">Mighty Networks edits complete</div>
-                <div class="ms-card-owner">Michelle + Tiffanie</div>
-                <span class="ms-tag tech">MN Edits</span>
               </div>
               <div class="ms-card urgent">
                 <div class="ms-card-title">🗓️ Prompts session with Max</div>
+                <div class="ms-time">60 mins</div>
                 <div class="ms-card-owner">Michelle + Max</div>
-                <span class="ms-tag meeting">Meeting Set</span>
               </div>
             </div>
 
